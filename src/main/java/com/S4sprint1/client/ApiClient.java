@@ -17,6 +17,7 @@ public class ApiClient {
         clientUI.setCommand(command);
         clientUI.run();
     }
+    //
 
     public static String getRequest(String url) throws IOException {
         CloseableHttpClient httpClient = HttpClients.createDefault();
