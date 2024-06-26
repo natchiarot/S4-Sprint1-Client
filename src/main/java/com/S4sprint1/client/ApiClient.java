@@ -6,6 +6,9 @@ import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
 import java.io.IOException;
+import org.json.simple.JSONObject;
+import org.json.simple.JSONValue;
+import org.json.simple.JSONArray;
 
 public class ApiClient {
     public static void main(String[] args) {
@@ -26,7 +29,15 @@ public class ApiClient {
                     String command = ClientUI.CITY_URL.replace("{id}", id);
                     try {
                         String response = getRequest(command);
-                        System.out.println("Response: " + response);
+                        Object data = JSONValue.parse(response);
+                        JSONObject jsonObjectDecode = (JSONObject) data;
+
+                        long cityId = (long)jsonObjectDecode.get("id");
+                        String name = (String)jsonObjectDecode.get("name");
+                        String state = (String)jsonObjectDecode.get("state");
+                        long population = (long)jsonObjectDecode.get("population");
+                        System.out.println(cityId + " " + name + " " + state + " " + population);
+
                     } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -39,7 +50,20 @@ public class ApiClient {
                     String command = ClientUI.CITIES_URL;
                     try {
                         String response = getRequest(command);
-                        System.out.println("Response: " + response);
+                        Object data = JSONValue.parse(response);
+                        JSONArray jsonArrayDecode = (JSONArray) data;
+
+                        for (Object citiesObj : jsonArrayDecode) {
+                            JSONObject jsonObjectDecode = (JSONObject) citiesObj;
+
+                            long cityId = (long) jsonObjectDecode.get("id");
+                            String name = (String) jsonObjectDecode.get("name");
+                            String state = (String) jsonObjectDecode.get("state");
+                            long population = (long) jsonObjectDecode.get("population");
+
+                            System.out.println(cityId + " " + name + " " + state + " " + population);
+                        }
+
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
@@ -155,13 +179,27 @@ public class ApiClient {
                     System.out.println("Please provide valid number of arguments (1).");
                 }
                 break;
-            case "get_airports_city":
+            case "get_cities_airports":
                 if (args.length == 2) {
                     String id = args[1];
                     String command = ClientUI.CITY_URL.replace("{id}", id);
                     try {
                         String response = getRequest(command);
-                        System.out.println("Response: " + response);
+                        Object data = JSONValue.parse(response);
+                        JSONObject jsonObjectDecode = (JSONObject) data;
+
+                        long cityId = (long)jsonObjectDecode.get("id");
+                        String cityName = (String)jsonObjectDecode.get("name");
+
+                        JSONArray airportsArray = (JSONArray) jsonObjectDecode.get("airports");
+
+                        for (Object airportsObj : airportsArray) {
+                            JSONObject airports = (JSONObject) airportsObj;
+                            long airportsId = (long) airports.get("id");
+                            String airportsName = (String) airports.get("name");
+                            String airportsCode = (String) airports.get("code");
+                            System.out.println(cityId + " " + cityName + " " + airportsId + " " + airportsName + " " + airportsCode);
+                        }
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
@@ -183,7 +221,7 @@ public class ApiClient {
                     System.out.println("Please provide a valid passenger id.");
                 }
                 break;
-            case "get_passenger-{id}_airports_list":
+            case "get_airports_list_for_passenger":
                 break;
 
             default:
