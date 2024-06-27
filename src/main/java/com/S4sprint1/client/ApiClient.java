@@ -460,5 +460,15 @@ public class ApiClient {
         HttpResponse httpResponse = httpClient.execute(httpGet);
         return EntityUtils.toString(httpResponse.getEntity());
     }
+
+    public static String getRequest(CloseableHttpClient httpClient, String url) {
+        try {
+            HttpGet httpGet = new HttpGet(url);
+            HttpResponse httpResponse = httpClient.execute(httpGet);
+            return EntityUtils.toString(httpResponse.getEntity());
+        } catch (IOException e) {
+            return ("Error: " + e.getMessage());
+        }
+    }
 }
 
