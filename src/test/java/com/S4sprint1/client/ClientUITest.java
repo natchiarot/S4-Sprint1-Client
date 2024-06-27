@@ -19,6 +19,9 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
+import org.json.simple.JSONObject;
+import org.json.simple.JSONValue;
+
 public class ClientUITest {
     @Mock
     private CloseableHttpClient httpClient;
@@ -29,18 +32,18 @@ public class ClientUITest {
     @Mock
     private StatusLine statusLine;
 
-    private ClientUI clientUI;
+    private ApiClient apiCLient;
 
     @BeforeEach
     public void setUp() {
         MockitoAnnotations.openMocks(this);
-        clientUI = new ClientUI();
+        apiCLient = new ApiClient();
     }
 
     @Test
     public void testGetRequest() throws IOException {
         String url = "http://localhost:8080/city/1";
-        String expectedResponse = "St. John's";
+        String expectedResponse = "{\"id\":1,\"name\":\"New York\",\"state\":\"North Carolina\",\"population\":516456,\"airports\":[{\"id\":10,\"name\":\"Sydney Kingsford Smith Airport\",\"code\":\"TGY\"}]}";
         when(httpClient.execute(any(HttpGet.class))).thenReturn(httpResponse);
         when(httpResponse.getEntity()).thenReturn(httpEntity);
         when(httpResponse.getStatusLine()).thenReturn(statusLine);
@@ -51,17 +54,24 @@ public class ClientUITest {
 
     @Test
     public void testGetRequestIOException() throws IOException {
-        String url = "http://localhost:8080/";
-        String expectedResponse = null;
+        String command = "http://localhost:8080/";
+        String response = getRequest(command);
+        String expectedResponse = "Not Found";
+
+        Object data = JSONValue.parse(response);
+        JSONObject jsonObjectDecode = (JSONObject) data;
+
+        String error = (String)jsonObjectDecode.get("error");
+        System.out.println("Error: " + error);
+
         when(httpClient.execute(any(HttpGet.class))).thenThrow(new IOException());
-        String response = getRequest(url);
-        assertEquals(expectedResponse, response);
+        assertEquals(expectedResponse, error);
     }
 
     @Test
     public void testRun() {
-        clientUI.command = "get airport";
-        clientUI.run();
+        apiCLient.command = "get airport";
+        apiCLient.run();
     }
 
     @Test

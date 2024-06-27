@@ -11,7 +11,7 @@ public class ClientUI {
     public static final String AIRPORT_URL = BASE_URL + "/airport" + "/{id}";
     public static final String AIRPORTS_URL = BASE_URL + "/airports";
     public static final String AIRCRAFT_URL = BASE_URL + "/aircraft" + "/{id}";
-    public static final String AIRCRAFTLIST_URL = BASE_URL + "/aircraftList";
+    public static final String AIRCRAFT_LIST_URL = BASE_URL + "/aircraft";
     public static final String FLIGHT_URL = BASE_URL + "/flight" + "/{id}";
     public static final String FLIGHTS_URL = BASE_URL + "/flights";
     public static final String PASSENGER_URL = BASE_URL + "/passenger" + "/{id}";
