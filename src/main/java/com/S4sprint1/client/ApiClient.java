@@ -20,7 +20,21 @@ public class ApiClient {
 
         switch(args[0]) {
             case "help":
-                System.out.println("Help page:");
+                System.out.println(String.format("%35s", "HELP"));
+                System.out.println(String.format("%-50s %s", "* \"get_city\" [id]", "gets a specific city by id."));
+                System.out.println(String.format("%-50s %s", "* \"get_cities\"", "gets a list of all cities."));
+                System.out.println(String.format("%-50s %s", "* \"get_airport\" [id]", "gets a specific airport by id."));
+                System.out.println(String.format("%-50s %s", "* \"get_airports\"", "gets a list of all airports."));
+                System.out.println(String.format("%-50s %s", "* \"get_aircraft\" [id]", "gets a specific aircraft by id."));
+                System.out.println(String.format("%-50s %s", "* \"get_all_aircraft\"", "gets a list of every aircraft."));
+                System.out.println(String.format("%-50s %s", "* \"get_flight\" [id]", "gets a specific flight by id."));
+                System.out.println(String.format("%-50s %s", "* \"get_flights\"", "gets a list of all flights."));
+                System.out.println(String.format("%-50s %s", "* \"get_passenger\" [id]", "gets a specific passenger by id."));
+                System.out.println(String.format("%-50s %s", "* \"get_passengers\"", "gets a list of all passengers."));
+                System.out.println(String.format("%-50s %s", "* \"get_cities_airports\" [id]", "gets airports in a specific city."));
+                System.out.println(String.format("%-50s %s", "* \"get_aircraft_list_for_passenger\" [id]", "lists all aircraft a specific passenger has travelled on."));
+                System.out.println(String.format("%-50s %s", "* \"get_takeoff_and_landing\" [id]", "..."));
+                System.out.println(String.format("%-50s %s", "* \"get_airports_list_for_passenger\" [id]", "lists airports a specific passenger has used."));
 
                 break;
             case "get_city":
