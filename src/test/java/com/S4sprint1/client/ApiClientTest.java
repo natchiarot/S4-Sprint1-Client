@@ -5,24 +5,20 @@ import org.apache.http.StatusLine;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.CloseableHttpClient;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
 
-import static com.S4sprint1.client.ApiClient.getRequest;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
-import org.json.simple.JSONObject;
-import org.json.simple.JSONValue;
-
-public class ClientUITest {
+public class ApiClientTest {
     @Mock
     private CloseableHttpClient httpClient;
     @Mock
@@ -32,12 +28,28 @@ public class ClientUITest {
     @Mock
     private StatusLine statusLine;
 
+    @Mock
+    private CloseableHttpClient client;
+
+    @Mock
+    private CloseableHttpResponse response;
+
+    @Mock
+    private HttpEntity entity;
+
+    @Mock
     private ApiClient apiCLient;
+
+    @Mock
+    private ClientUI clientUI;
+
+    @Mock
+    private HttpGet httpGet;
 
     @BeforeEach
     public void setUp() {
         MockitoAnnotations.openMocks(this);
-        apiCLient = new ApiClient();
+        ApiClient apiCLient = new ApiClient();
     }
 
     @Test
@@ -46,49 +58,29 @@ public class ClientUITest {
         String expectedResponse = "{\"id\":1,\"name\":\"New York\",\"state\":\"North Carolina\",\"population\":516456,\"airports\":[{\"id\":10,\"name\":\"Sydney Kingsford Smith Airport\",\"code\":\"TGY\"}]}";
         when(httpClient.execute(any(HttpGet.class))).thenReturn(httpResponse);
         when(httpResponse.getEntity()).thenReturn(httpEntity);
+        when(httpEntity.getContent()).thenReturn(new ByteArrayInputStream(expectedResponse.getBytes()));
         when(httpResponse.getStatusLine()).thenReturn(statusLine);
         when(statusLine.getStatusCode()).thenReturn(200);
-        String response = getRequest(url);
+        String response = ApiClient.getRequest(httpClient, url);
         assertEquals(expectedResponse, response);
     }
 
     @Test
-    public void testGetRequestIOException() throws IOException {
-        String command = "http://localhost:8080/";
-        String response = getRequest(command);
-        String expectedResponse = "Not Found";
+    public void testGetRequestError() throws IOException {
+        String url = "http://localhost:8080/city/1";
+        when(httpClient.execute(any(HttpGet.class))).thenReturn(httpResponse);
+        when(httpResponse.getEntity()).thenReturn(httpEntity);
+        when(httpResponse.getStatusLine()).thenReturn(statusLine);
+        when(statusLine.getStatusCode()).thenReturn(404);
+        String response = ApiClient.getRequest(httpClient, url);
+        assertNull(response);
+    }
 
-        Object data = JSONValue.parse(response);
-        JSONObject jsonObjectDecode = (JSONObject) data;
-
-        String error = (String)jsonObjectDecode.get("error");
-        System.out.println("Error: " + error);
-
+    @Test
+    public void testGetRequestException() throws IOException {
+        String url = "http://localhost:8080/1";
         when(httpClient.execute(any(HttpGet.class))).thenThrow(new IOException());
-        assertEquals(expectedResponse, error);
-    }
-
-    @Test
-    public void testRun() {
-        apiCLient.command = "get airport";
-        apiCLient.run();
-    }
-
-    @Test
-    public void testRunGetCity() {
-        clientUI.command = "get city";
-        clientUI.run();
-    }
-
-    @Test
-    public void testRunGetCities() {
-        clientUI.command = "get cities";
-        clientUI.run();
-    }
-
-    @Test
-    public void testRunGetAirports() {
-        clientUI.command = "get airports";
-        clientUI.run();
+        String response = ApiClient.getRequest(httpClient, url);
+        assertEquals("Error: null", response);
     }
 }
