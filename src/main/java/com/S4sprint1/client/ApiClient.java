@@ -50,7 +50,7 @@ public class ApiClient {
                         String name = (String)jsonObjectDecode.get("name");
                         String state = (String)jsonObjectDecode.get("state");
                         long population = (long)jsonObjectDecode.get("population");
-                        System.out.println(cityId + " " + name + " " + state + " " + population);
+                        System.out.println("Id: " + cityId + " \nName: " + name + " \nState: " + state + " \nPopulation: " + population);
 
                     } catch (IOException e) {
                     e.printStackTrace();
@@ -76,7 +76,7 @@ public class ApiClient {
                             String state = (String) jsonObjectDecode.get("state");
                             long population = (long) jsonObjectDecode.get("population");
 
-                            System.out.println(cityId + " " + name + " " + state + " " + population);
+                            System.out.println("Id: " + cityId + " \nName: " + name + " \nState: " + state + " \nPopulation: " + population);
                         }
 
                     } catch (IOException e) {
@@ -99,7 +99,7 @@ public class ApiClient {
                         long airportId = (long)jsonObjectDecode.get("id");
                         String name = (String)jsonObjectDecode.get("name");
                         String code = (String)jsonObjectDecode.get("code");
-                        System.out.println(airportId + " " + name + " " + code);
+                        System.out.println("Id: " + airportId + " \nName: " + name + " \nCode: " + code);
 
                     } catch (IOException e) {
                         e.printStackTrace();
@@ -124,7 +124,7 @@ public class ApiClient {
                             String name = (String) jsonObjectDecode.get("name");
                             String code = (String) jsonObjectDecode.get("code");
 
-                            System.out.println(airportId + " " + name + " " + code);
+                            System.out.println("Id: " + airportId + " \nName: " + name + " \nCode: " + code);
                         }
                     } catch (IOException e) {
                         e.printStackTrace();
@@ -149,7 +149,7 @@ public class ApiClient {
                         long maxCapacity = (long)jsonObjectDecode.get("maxCapacity");
                         long airportId = (long)jsonObjectDecode.get("airportId");
 
-                        System.out.println(aircraftId + " " + type + " " + airlineName + " " + maxCapacity + " " + airportId);
+                        System.out.println("Id: " + aircraftId + " \nType: " + type + " \nAirline Name:" + airlineName + " \nMaximum Capacity: " + maxCapacity + " \nAirport Id: " + airportId);
 
                     } catch (IOException e) {
                         e.printStackTrace();
@@ -176,7 +176,7 @@ public class ApiClient {
                             long maxCapacity = (long)jsonObjectDecode.get("maxCapacity");
                             long airportId = (long)jsonObjectDecode.get("airportId");
 
-                            System.out.println(aircraftId + " " + type + " " + airlineName + " " + maxCapacity + " " + airportId);
+                            System.out.println("Id: " + aircraftId + " \nType: " + type + " \nAirline Name:" + airlineName + " \nMaximum Capacity: " + maxCapacity + " \nAirport Id: " + airportId);
                         }
                     } catch (IOException e) {
                         e.printStackTrace();
@@ -203,7 +203,7 @@ public class ApiClient {
                         long aircraftId = (long)jsonObjectDecode.get("aircraftId");
                         long passengerId = (long)jsonObjectDecode.get("passengerId");
 
-                        System.out.println(flightId + " " + expDeparture + " " + expArrival + " " + fromAirportId + " " + toAirportId + " " + aircraftId + " " + passengerId);
+                        System.out.println("Id: " + flightId + " \nExpected Departure: " + expDeparture + " \nExpected Arrival: " + expArrival + " \nFrom Airport Id: " + fromAirportId + " \nTo Airport Id: " + toAirportId + " \nAircraft Id: " + aircraftId + " \nPassenger Id: " + passengerId);
 
                     } catch (IOException e) {
                         e.printStackTrace();
@@ -232,7 +232,7 @@ public class ApiClient {
                             long aircraftId = (long)jsonObjectDecode.get("aircraftId");
                             long passengerId = (long)jsonObjectDecode.get("passengerId");
 
-                            System.out.println(flightId + " " + expDeparture + " " + expArrival + " " + fromAirportId + " " + toAirportId + " " + aircraftId + " " + passengerId);
+                            System.out.println("Id: " + flightId + " \nExpected Departure: " + expDeparture + " \nExpected Arrival: " + expArrival + " \nFrom Airport Id: " + fromAirportId + " \nTo Airport Id: " + toAirportId + " \nAircraft Id: " + aircraftId + " \nPassenger Id: " + passengerId);
 
                         }
                     } catch (IOException e) {
@@ -258,7 +258,7 @@ public class ApiClient {
                         String phoneNumber = (String)jsonObjectDecode.get("phoneNumber");
                         long homeCityId = (long)jsonObjectDecode.get("homeCityId");
 
-                        System.out.println(passengerId + " " + firstName + " " + lastName + " " + phoneNumber + " " + homeCityId);
+                        System.out.println("Id: " + passengerId + " Name: " + firstName + " " + lastName + " \n Phone Number: " + phoneNumber + " \nHome City Id: " + homeCityId);
 
                     } catch (IOException e) {
                         e.printStackTrace();
@@ -285,7 +285,7 @@ public class ApiClient {
                             String phoneNumber = (String)jsonObjectDecode.get("phoneNumber");
                             long homeCityId = (long)jsonObjectDecode.get("homeCityId");
 
-                            System.out.println(passengerId + " " + firstName + " " + lastName + " " + phoneNumber + " " + homeCityId);
+                            System.out.println("Id: " + passengerId + " Name: " + firstName + " " + lastName + " \n Phone Number: " + phoneNumber + " \nHome City Id: " + homeCityId);
 
                         }
                     } catch (IOException e) {
@@ -315,7 +315,7 @@ public class ApiClient {
                             long airportsId = (long) airports.get("id");
                             String name = (String) airports.get("name");
                             String code = (String) airports.get("code");
-                            System.out.println(cityId + " " + cityName + " " + airportsId + " " + name + " " + code);
+                            System.out.println("City Id: " + cityId + " \nName of City: " + cityName + " \nAirports Id: " + airportsId + " \nAirports Name: " + name + " \nAirports Code: " + code);
                         }
                     } catch (IOException e) {
                         e.printStackTrace();
@@ -352,7 +352,7 @@ public class ApiClient {
                             long maxCapacity = (long) pAAJsonObjectDecode.get("maxCapacity");
                             long airportId = (long) pAAJsonObjectDecode.get("airportId");
 
-                            System.out.println(aircraftId + " " + type + " " + airlineName + " " + maxCapacity + " " + airportId);
+                            System.out.println("Aircraft Id: " + aircraftId + " \nAircraft Type: " + type + " \nAirline Name: " + airlineName + " \nMaximum Capacity" + maxCapacity + " \nAirport Id: " + airportId);
                         }
 
                     } catch (IOException e) {
@@ -439,7 +439,7 @@ public class ApiClient {
                             String name = (String) fPAJsonObjectDecode.get("name");
                             String code = (String) fPAJsonObjectDecode.get("code");
 
-                            System.out.println(airportId + " " + name + " " + code);
+                            System.out.println("Airport Id: " + airportId + " \nName: " + name + " \nCode" + code);
 
                             String toAirportIdString = Long.toString(toAirportId);
                             String tPACommand = ClientUI.AIRPORT_URL.replace("{id}", toAirportIdString);
@@ -452,7 +452,7 @@ public class ApiClient {
                             String name2 = (String) tPAJsonObjectDecode.get("name");
                             String code2 = (String) tPAJsonObjectDecode.get("code");
 
-                            System.out.println(airportId2 + " " + name2 + " " + code2);
+                            System.out.println("Airport Id: " + airportId2 + " \nName: " + name2 + " \nCode" + code2);
                         }
 
                     } catch (IOException e) {
