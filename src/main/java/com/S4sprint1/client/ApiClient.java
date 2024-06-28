@@ -366,7 +366,7 @@ public class ApiClient {
             case "get_takeoff_and_landing":
                 if (args.length == 2) {
                     String id = args[1];
-                    String command = ClientUI.PASSENGERS_FLIGHTS_URL.replace("{id}", id);
+                    String command = ClientUI.AIRCRAFT_LANDING_URL.replace("{id}", id);
                     try {
                         String response = getRequest(command);
                         Object data = JSONValue.parse(response);
