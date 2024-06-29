@@ -33,7 +33,7 @@ public class ApiClient {
                 System.out.println(String.format("%-50s %s", "* \"get_passengers\"", "gets a list of all passengers."));
                 System.out.println(String.format("%-50s %s", "* \"get_cities_airports\" [id]", "gets airports in a specific city."));
                 System.out.println(String.format("%-50s %s", "* \"get_aircraft_list_for_passenger\" [id]", "lists all aircraft a specific passenger has travelled on."));
-                System.out.println(String.format("%-50s %s", "* \"get_takeoff_and_landing\" [id]", "..."));
+                System.out.println(String.format("%-50s %s", "* \"get_takeoff_and_landing\" [id]", "lists all airports a specific aircraft can take off from and land at."));
                 System.out.println(String.format("%-50s %s", "* \"get_airports_list_for_passenger\" [id]", "lists airports a specific passenger has used."));
 
                 break;
