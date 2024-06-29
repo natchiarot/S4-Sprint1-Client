@@ -53,7 +53,7 @@ public class ApiClient {
                         System.out.println("Id: " + cityId + " \nName: " + name + " \nState: " + state + " \nPopulation: " + population);
 
                     } catch (IOException e) {
-                    e.printStackTrace();
+                        System.out.println("Error: " + e.getMessage());
                 }
                 } else {
                     System.out.println("Please provide a valid city id.");
@@ -80,7 +80,7 @@ public class ApiClient {
                         }
 
                     } catch (IOException e) {
-                        e.printStackTrace();
+                        System.out.println("Error: " + e.getMessage());
                     }
                 } else {
                     System.out.println("Please provide valid number of arguments (1).");
@@ -102,7 +102,7 @@ public class ApiClient {
                         System.out.println("Id: " + airportId + " \nName: " + name + " \nCode: " + code);
 
                     } catch (IOException e) {
-                        e.printStackTrace();
+                        System.out.println("Error: " + e.getMessage());
                     }
                 } else {
                     System.out.println("Please provide a valid airport id.");
@@ -127,7 +127,7 @@ public class ApiClient {
                             System.out.println("Id: " + airportId + " \nName: " + name + " \nCode: " + code);
                         }
                     } catch (IOException e) {
-                        e.printStackTrace();
+                        System.out.println("Error: " + e.getMessage());
                     }
                 } else {
                     System.out.println("Please provide valid number of arguments (1).");
@@ -152,7 +152,7 @@ public class ApiClient {
                         System.out.println("Id: " + aircraftId + " \nType: " + type + " \nAirline Name:" + airlineName + " \nMaximum Capacity: " + maxCapacity + " \nAirport Id: " + airportId);
 
                     } catch (IOException e) {
-                        e.printStackTrace();
+                        System.out.println("Error: " + e.getMessage());
                     }
                 } else {
                     System.out.println("Please provide a valid aircraft id.");
@@ -179,7 +179,7 @@ public class ApiClient {
                             System.out.println("Id: " + aircraftId + " \nType: " + type + " \nAirline Name:" + airlineName + " \nMaximum Capacity: " + maxCapacity + " \nAirport Id: " + airportId);
                         }
                     } catch (IOException e) {
-                        e.printStackTrace();
+                        System.out.println("Error: " + e.getMessage());
                     }
                 } else {
                     System.out.println("Please provide valid number of arguments (1).");
@@ -206,7 +206,7 @@ public class ApiClient {
                         System.out.println("Id: " + flightId + " \nExpected Departure: " + expDeparture + " \nExpected Arrival: " + expArrival + " \nFrom Airport Id: " + fromAirportId + " \nTo Airport Id: " + toAirportId + " \nAircraft Id: " + aircraftId + " \nPassenger Id: " + passengerId);
 
                     } catch (IOException e) {
-                        e.printStackTrace();
+                        System.out.println("Error: " + e.getMessage());
                     }
                 } else {
                     System.out.println("Please provide a valid flight id.");
@@ -236,7 +236,7 @@ public class ApiClient {
 
                         }
                     } catch (IOException e) {
-                        e.printStackTrace();
+                        System.out.println("Error: " + e.getMessage());
                     }
                 } else {
                     System.out.println("Please provide valid number of arguments (1).");
@@ -261,7 +261,7 @@ public class ApiClient {
                         System.out.println("Id: " + passengerId + " Name: " + firstName + " " + lastName + " \n Phone Number: " + phoneNumber + " \nHome City Id: " + homeCityId);
 
                     } catch (IOException e) {
-                        e.printStackTrace();
+                        System.out.println("Error: " + e.getMessage());
                     }
                 } else {
                     System.out.println("Please provide a valid passenger id.");
@@ -289,7 +289,7 @@ public class ApiClient {
 
                         }
                     } catch (IOException e) {
-                        e.printStackTrace();
+                        System.out.println("Error: " + e.getMessage());
                     }
                 } else {
                     System.out.println("Please provide valid number of arguments (1).");
@@ -318,7 +318,7 @@ public class ApiClient {
                             System.out.println("City Id: " + cityId + " \nName of City: " + cityName + " \nAirports Id: " + airportsId + " \nAirports Name: " + name + " \nAirports Code: " + code);
                         }
                     } catch (IOException e) {
-                        e.printStackTrace();
+                        System.out.println("Error: " + e.getMessage());
                     }
                 } else {
                     System.out.println("Please provide a valid city id.");
@@ -356,7 +356,7 @@ public class ApiClient {
                         }
 
                     } catch (IOException e) {
-                        e.printStackTrace();
+                        System.out.println("Error: " + e.getMessage());
                     }
                 } else {
                     System.out.println("Please provide a valid passenger id.");
@@ -366,47 +366,48 @@ public class ApiClient {
             case "get_takeoff_and_landing":
                 if (args.length == 2) {
                     String id = args[1];
-                    String command = ClientUI.AIRCRAFT_LANDING_URL.replace("{id}", id);
+                    String command2 = ClientUI.AIRCRAFT_DESTINATIONS_URL.replace("{id}", id);
+                    String command = ClientUI.AIRCRAFT_URL.replace("{id}", id);
                     try {
                         String response = getRequest(command);
                         Object data = JSONValue.parse(response);
-                        JSONArray jsonArrayDecode = (JSONArray) data;
+                        JSONObject jsonObjectDecode = (JSONObject) data;
 
-                        for (Object takeoffLandingObj : jsonArrayDecode) {
-                            JSONObject jsonObjectDecode = (JSONObject) takeoffLandingObj;
+                        String response2 = getRequest(command2);
+                        Object data2 = JSONValue.parse(response2);
+                        JSONArray jsonArrayDecode2 = (JSONArray) data2;
 
-                            long fromAirportId = (long) jsonObjectDecode.get("fromAirportId");
-                            long toAirportId = (long) jsonObjectDecode.get("toAirportId");
+                        long airportId = (long) jsonObjectDecode.get("airportId");
 
-                            String fromAirportIdString = Long.toString(fromAirportId);
-                            String takeoffCommand = ClientUI.AIRPORT_URL.replace("{id}", fromAirportIdString);
+                        String airportIdString = Long.toString(airportId);
+                        String takeoffCommand = ClientUI.AIRPORT_URL.replace("{id}", airportIdString);
 
-                            String takeoffResponse = getRequest(takeoffCommand);
-                            Object takeoffData = JSONValue.parse(takeoffResponse);
-                            JSONObject takeoffJsonObjectDecode = (JSONObject) takeoffData;
+                        String takeoffResponse = getRequest(takeoffCommand);
+                        Object takeoffData = JSONValue.parse(takeoffResponse);
+                        JSONObject takeoffJsonObjectDecode = (JSONObject) takeoffData;
 
-                            long airportId = (long) takeoffJsonObjectDecode.get("id");
-                            String name = (String) takeoffJsonObjectDecode.get("name");
-                            String code = (String) takeoffJsonObjectDecode.get("code");
+                        long airportId1 = (long) takeoffJsonObjectDecode.get("id");
+                        String name = (String) takeoffJsonObjectDecode.get("name");
+                        String code = (String) takeoffJsonObjectDecode.get("code");
+                        System.out.println("Take off from:");
+                        System.out.println("Id: " + airportId1 + " \nAirline Name: " + name + " \nAirline Code: " + code);
 
-                            System.out.println("Take off from: " + airportId + " " + name + " " + code);
+                        System.out.println("\nLanding:");
 
-                            String toAirportIdString = Long.toString(toAirportId);
-                            String landCommand = ClientUI.AIRPORT_URL.replace("{id}", toAirportIdString);
+                        for (Object landingObj : jsonArrayDecode2) {
+                            JSONObject jsonObjectDecode2 = (JSONObject) landingObj;
 
-                            String landResponse = getRequest(landCommand);
-                            Object landData = JSONValue.parse(landResponse);
-                            JSONObject landJsonObjectDecode = (JSONObject) landData;
+                            long airportId2 = (long) jsonObjectDecode2.get("id");
+                            String name2 = (String) jsonObjectDecode2.get("name");
+                            String code2 = (String) jsonObjectDecode2.get("code");
 
-                            long airportId2 = (long) landJsonObjectDecode.get("id");
-                            String name2 = (String) landJsonObjectDecode.get("name");
-                            String code2 = (String) landJsonObjectDecode.get("code");
+                            System.out.println("Id: " + airportId2 + " \nAirline Name: " + name2 + " \nAirline Code: " + code2 + "\n");
 
-                            System.out.println("Landing: " + airportId2 + " " + name2 + " " + code2);
                         }
 
+
                     } catch (IOException e) {
-                        e.printStackTrace();
+                        System.out.println("Error: " + e.getMessage());
                     }
                 } else {
                     System.out.println("Please provide a valid passenger id.");
@@ -456,7 +457,7 @@ public class ApiClient {
                         }
 
                     } catch (IOException e) {
-                        e.printStackTrace();
+                        System.out.println("Error: " + e.getMessage());
                     }
                 } else {
                     System.out.println("Please provide a valid passenger id.");
