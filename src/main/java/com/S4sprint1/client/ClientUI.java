@@ -1,9 +1,5 @@
 package com.S4sprint1.client;
 
-import java.io.IOException;
-
-import static com.S4sprint1.client.ApiClient.getRequest;
-
 public class ClientUI {
     public static final String BASE_URL = "http://localhost:8080";
     public static final String CITY_URL = BASE_URL + "/city" + "/{id}";
@@ -17,4 +13,5 @@ public class ClientUI {
     public static final String PASSENGER_URL = BASE_URL + "/passenger" + "/{id}";
     public static final String PASSENGERS_URL = BASE_URL + "/passengers";
     public static final String PASSENGERS_FLIGHTS_URL = BASE_URL + "/flights?find=passenger&id=" + "{id}";
+    public static final String AIRCRAFT_DESTINATIONS_URL = BASE_URL + "/aircraft/" + "{id}" + "/destinations";
 }
